@@ -25,17 +25,15 @@ public abstract class LibraryRoomDatabase : RoomDatabase() {
     abstract fun tagDAO() : TagDAO
 
     companion object {
-        @Volatile
         private var INSTANCE: LibraryRoomDatabase? = null
 
         fun getDatabase(context: Context, scope: CoroutineScope): LibraryRoomDatabase {
             val tempInstance = INSTANCE
-            if (tempInstance != null) {
-                return tempInstance
+            if (tempInstance != null) {return tempInstance
             }
             synchronized(this) {
                 val instance = Room.databaseBuilder(
-                    context.applicationContext,
+                    context,//.applicationContext,
                     LibraryRoomDatabase::class.java,
                     "Library_database"
                 )
