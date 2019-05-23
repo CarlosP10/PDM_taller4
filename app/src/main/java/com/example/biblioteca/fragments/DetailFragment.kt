@@ -26,13 +26,13 @@ private const val ARG_PARAM1 = "BookID"
  */
 class DetailFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: Int? = null
+    private var param1: String? = null
     private var listener: OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getInt(ARG_PARAM1)
+            param1 = it.getString(ARG_PARAM1)
         }
     }
 
@@ -50,7 +50,7 @@ class DetailFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         if(param1 != null){
-            test.text = "Book #"+param1
+            test.text = param1
         }
     }
 

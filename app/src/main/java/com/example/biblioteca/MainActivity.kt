@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.example.biblioteca.database.entities.Book
 import com.example.biblioteca.fragments.DetailFragment
 import com.example.biblioteca.fragments.ListFragment
 import com.example.biblioteca.interfaces.FragmentCommunication
@@ -20,10 +21,10 @@ import java.nio.file.WatchEvent
 
 class MainActivity : AppCompatActivity(), ListFragment.OnFragmentInteractionListener, DetailFragment.OnFragmentInteractionListener, FragmentCommunication {
 
-    override fun sendData(data: Int) {
+    override fun sendData(data: Book) {
         var detalle = DetailFragment()
         var datos = Bundle()
-        datos.putInt("BookID", data)
+        datos.putString("BookID", data.bookName)
         detalle?.arguments = datos
 
         if(detailContainer != null){

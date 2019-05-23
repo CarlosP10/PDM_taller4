@@ -9,11 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.biblioteca.R
 import com.example.biblioteca.adapters.BookAdapter
 import com.example.biblioteca.interfaces.FragmentCommunication
+import com.example.biblioteca.model.BookViewModel
 import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.android.synthetic.main.list_item.view.*
 
@@ -40,6 +42,8 @@ class ListFragment : Fragment() {
 
     private lateinit var action: View.OnClickListener
 
+    private lateinit var bookViewModel: BookViewModel
+
     private lateinit var activity: Activity
     private lateinit var comunicacion: FragmentCommunication
 
@@ -52,6 +56,9 @@ class ListFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        bookViewModel = ViewModelProviders.of(this).get(BookViewModel::class.java)
+
     }
 
     override fun onCreateView(
@@ -129,7 +136,7 @@ class ListFragment : Fragment() {
     }
 
     fun initRecycler(){
-        val resources = listOf(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15)
+        val resources = bookViewModel.getAllBook().value!!
 
         viewManager = LinearLayoutManager(context)
 
@@ -138,8 +145,6 @@ class ListFragment : Fragment() {
         }
 
         viewAdapter = BookAdapter(resources, action)
-
-        //TODO: Agregar click listener
 
         with(booksRV){
             adapter = viewAdapter

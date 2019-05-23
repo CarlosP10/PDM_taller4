@@ -5,10 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.biblioteca.R
+import com.example.biblioteca.database.entities.Book
 import com.example.biblioteca.interfaces.RecyclerViewClickListener
 import kotlinx.android.synthetic.main.list_item.view.*
 
-class BookAdapter(var items: List<Int>, mListener: View.OnClickListener): RecyclerView.Adapter<BookAdapter.BookHolder>() {
+class BookAdapter(var items: List<Book>, mListener: View.OnClickListener): RecyclerView.Adapter<BookAdapter.BookHolder>() {
 
     private lateinit var action: View.OnClickListener
 
@@ -40,9 +41,8 @@ class BookAdapter(var items: List<Int>, mListener: View.OnClickListener): Recycl
             itemView.setOnClickListener(listener)
         }
 
-        fun bind(item: Int) = with(itemView){
-            rv_bookName.text = "Book #"+item
-            this.tag = item.toString()
+        fun bind(item: Book) = with(itemView){
+            rv_bookName.text = item.bookName
         }
 
     }
