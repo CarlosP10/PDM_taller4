@@ -28,13 +28,13 @@ public abstract class LibraryRoomDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: LibraryRoomDatabase? = null
 
-        fun getDatabase(context: Context/*, scope: CoroutineScope*/): LibraryRoomDatabase {
+        fun getDatabase(context: Context, scope: CoroutineScope): LibraryRoomDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {return tempInstance
             }
             synchronized(this) {
                 val instance = Room.databaseBuilder(context.applicationContext, LibraryRoomDatabase::class.java, "Library_database")
-                    //.addCallback(LibraryDatabaseCallback(scope))
+                    .addCallback(LibraryDatabaseCallback(scope))
                     .build()
                 INSTANCE = instance
                 return instance
@@ -42,7 +42,7 @@ public abstract class LibraryRoomDatabase : RoomDatabase() {
         }
     }
 
-    /*private class LibraryDatabaseCallback(private val scope: CoroutineScope) : RoomDatabase.Callback() {
+    private class LibraryDatabaseCallback(private val scope: CoroutineScope) : RoomDatabase.Callback() {
 
         override fun onOpen(db: SupportSQLiteDatabase) {
             super.onOpen(db)
@@ -117,5 +117,5 @@ public abstract class LibraryRoomDatabase : RoomDatabase() {
             tag = Tag(10, "Suspenso")
             tagDao.insert(tag)
         }
-    }*/
+    }
 }

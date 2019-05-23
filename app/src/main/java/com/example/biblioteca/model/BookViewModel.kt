@@ -15,14 +15,15 @@ import kotlinx.coroutines.launch
 
 class BookViewModel (app:Application):AndroidViewModel(app){
     private val repository: BookRepository
+    lateinit var scope: CoroutineScope
     //lateinit var repository: BookRepository
 
 
     //SE PUEDE USAR SOLO LATEINIT PERO LO HICE ASI SOLO PARA SEGUIMIENTO DEL LABO
     init{
-        val bookDao = LibraryRoomDatabase.getDatabase(app).bookDAO()
-        val authorDao = LibraryRoomDatabase.getDatabase(app).authorDAO()
-        val tagDao = LibraryRoomDatabase.getDatabase(app).tagDAO()
+        val bookDao = LibraryRoomDatabase.getDatabase(app, scope).bookDAO()
+        val authorDao = LibraryRoomDatabase.getDatabase(app, scope).authorDAO()
+        val tagDao = LibraryRoomDatabase.getDatabase(app, scope).tagDAO()
         repository = BookRepository(bookDao,authorDao,tagDao)
     }
 
