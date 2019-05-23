@@ -9,15 +9,21 @@ import com.example.biblioteca.database.entities.Author
 import com.example.biblioteca.database.entities.Book
 import com.example.biblioteca.database.entities.Tag
 import com.example.biblioteca.repository.BookRepository
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class BookViewModel (app:Application):AndroidViewModel(app){
     private val repository: BookRepository
+    //lateinit var repository: BookRepository
 
+
+    //SE PUEDE USAR SOLO LATEINIT PERO LO HICE ASI SOLO PARA SEGUIMIENTO DEL LABO
     init{
-        val bookDao: LibraryRoomDatabase. (app).repoDao
-        repository = BookRepository(bookDao)
+        val bookDao = LibraryRoomDatabase.getDatabase(app).bookDAO()
+        val authorDao = LibraryRoomDatabase.getDatabase(app).authorDAO()
+        val tagDao = LibraryRoomDatabase.getDatabase(app).tagDAO()
+        repository = BookRepository(bookDao,authorDao,tagDao)
     }
 
     //------------------------BOOK----------------------------------
