@@ -11,6 +11,7 @@ import com.example.biblioteca.fragments.ListFragment
 import com.example.biblioteca.interfaces.FragmentCommunication
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity(), ListFragment.OnFragmentInteractionListener, DetailFragment.OnFragmentInteractionListener, FragmentCommunication {
 
@@ -20,10 +21,17 @@ class MainActivity : AppCompatActivity(), ListFragment.OnFragmentInteractionList
         datos.putInt("BookID", data)
         detalle?.arguments = datos
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.mainContainer, detalle)
-            .addToBackStack("prev")
-            .commit()
+        if(detailContainer != null){
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.detailContainer, detalle)
+                    .addToBackStack("prev")
+                    .commit()
+        }else {
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.mainContainer, detalle)
+                    .addToBackStack("prev")
+                    .commit()
+        }
     }
 
     override fun onFragmentInteraction(uri: Uri) {
