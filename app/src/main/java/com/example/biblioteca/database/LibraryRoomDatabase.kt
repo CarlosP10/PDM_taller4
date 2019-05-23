@@ -25,6 +25,7 @@ public abstract class LibraryRoomDatabase : RoomDatabase() {
     abstract fun tagDAO() : TagDAO
 
     companion object {
+        @Volatile
         private var INSTANCE: LibraryRoomDatabase? = null
 
         fun getDatabase(context: Context, scope: CoroutineScope): LibraryRoomDatabase {
