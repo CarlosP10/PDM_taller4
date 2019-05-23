@@ -5,14 +5,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.biblioteca.R
+import com.example.biblioteca.interfaces.RecyclerViewClickListener
 import kotlinx.android.synthetic.main.list_item.view.*
 
-class BookAdapter(var items: List<Int>): RecyclerView.Adapter<BookAdapter.BookHolder>() {
+class BookAdapter(var items: List<Int>, mListener: View.OnClickListener): RecyclerView.Adapter<BookAdapter.BookHolder>() {
+
+    private lateinit var action: View.OnClickListener
+
+    init {
+        action = mListener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
 
-        return BookHolder(view)
+        var holder = BookHolder(view)
+        holder.onClick(action)
+
+        return holder
     }
 
     override fun getItemCount() = items.size
@@ -23,10 +33,16 @@ class BookAdapter(var items: List<Int>): RecyclerView.Adapter<BookAdapter.BookHo
 
     }
 
-    class BookHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    class BookHolder(itemView: View): RecyclerView.ViewHolder(itemView), RecyclerViewClickListener{
+
+
+        override fun onClick(listener: View.OnClickListener) {
+            itemView.setOnClickListener(listener)
+        }
 
         fun bind(item: Int) = with(itemView){
             rv_bookName.text = "Book #"+item
+            this.tag = item.toString()
         }
 
     }

@@ -8,10 +8,23 @@ import android.view.Menu
 import android.view.MenuItem
 import com.example.biblioteca.fragments.DetailFragment
 import com.example.biblioteca.fragments.ListFragment
+import com.example.biblioteca.interfaces.FragmentCommunication
 
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), ListFragment.OnFragmentInteractionListener, DetailFragment.OnFragmentInteractionListener {
+class MainActivity : AppCompatActivity(), ListFragment.OnFragmentInteractionListener, DetailFragment.OnFragmentInteractionListener, FragmentCommunication {
+
+    override fun sendData(data: Int) {
+        var detalle = DetailFragment()
+        var datos = Bundle()
+        datos.putInt("BookID", data)
+        detalle?.arguments = datos
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.mainContainer, detalle)
+            .addToBackStack("prev")
+            .commit()
+    }
 
     override fun onFragmentInteraction(uri: Uri) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -26,7 +39,7 @@ class MainActivity : AppCompatActivity(), ListFragment.OnFragmentInteractionList
 
         if(savedInstanceState == null){
             supportFragmentManager.beginTransaction()
-                    .add(R.id.listContainer, listFragment)
+                    .add(R.id.mainContainer, listFragment)
                     .commit()
         }
 

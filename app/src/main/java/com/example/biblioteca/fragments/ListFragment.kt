@@ -1,5 +1,6 @@
 package com.example.biblioteca.fragments
 
+import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -7,11 +8,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.biblioteca.R
 import com.example.biblioteca.adapters.BookAdapter
+import com.example.biblioteca.interfaces.FragmentCommunication
 import kotlinx.android.synthetic.main.fragment_list.*
+import kotlinx.android.synthetic.main.list_item.view.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -34,6 +38,11 @@ class ListFragment : Fragment() {
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
 
+    private lateinit var action: View.OnClickListener
+
+    private lateinit var activity: Activity
+    private lateinit var comunicacion: FragmentCommunication
+
     private lateinit var viewAdapter:BookAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
 
@@ -51,7 +60,6 @@ class ListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val vista = inflater.inflate(R.layout.fragment_list, container, false)
-
         return vista
     }
 
@@ -67,6 +75,11 @@ class ListFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        if(context is Activity){
+            this.activity = context
+            comunicacion = this.activity as FragmentCommunication
+        }
+
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
@@ -116,8 +129,15 @@ class ListFragment : Fragment() {
     }
 
     fun initRecycler(){
+        val resources = listOf(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15)
+
         viewManager = LinearLayoutManager(context)
-        viewAdapter = BookAdapter(listOf(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15))
+
+        action = View.OnClickListener { v ->
+            comunicacion.sendData(resources.get(booksRV.getChildAdapterPosition(v)))
+        }
+
+        viewAdapter = BookAdapter(resources, action)
 
         //TODO: Agregar click listener
 
