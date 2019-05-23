@@ -2,16 +2,21 @@ package com.example.biblioteca
 
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.example.biblioteca.fragments.DetailFragment
 import com.example.biblioteca.fragments.ListFragment
 import com.example.biblioteca.interfaces.FragmentCommunication
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.fragment_list.*
+import java.nio.file.WatchEvent
 
 class MainActivity : AppCompatActivity(), ListFragment.OnFragmentInteractionListener, DetailFragment.OnFragmentInteractionListener, FragmentCommunication {
 
@@ -55,6 +60,29 @@ class MainActivity : AppCompatActivity(), ListFragment.OnFragmentInteractionList
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        searchBar.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+                //TODO: Actualizar RecyclerView al detectar cambios en el texto
+                Toast.makeText(this@MainActivity, s, Toast.LENGTH_SHORT).show()
+
+            }
+
+        })
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
