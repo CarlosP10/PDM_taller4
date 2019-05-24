@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.biblioteca.database.LibraryRoomDatabase
+import com.example.biblioteca.database.daos.AuthorBookJoinDAO
 import com.example.biblioteca.database.entities.Author
 import com.example.biblioteca.database.entities.Book
 import com.example.biblioteca.database.entities.Tag
@@ -20,8 +21,8 @@ class BookViewModel (app:Application):AndroidViewModel(app){
     val getAllAuthor:LiveData<List<Author>>
     val getAllTag:LiveData<List<Tag>>
     //lateinit var repository: BookRepository
-
-
+    val authorForBookDao = LibraryRoomDatabase.getDatabase(app, viewModelScope).authorBookJoinDAO()
+    val tagForBookDao = LibraryRoomDatabase.getDatabase(app, viewModelScope).tagBookJoinDAO()
 
     init{
         val bookDao = LibraryRoomDatabase.getDatabase(app, viewModelScope).bookDAO()
@@ -48,6 +49,5 @@ class BookViewModel (app:Application):AndroidViewModel(app){
     fun nukeBook() = repository.nukeBook()
     fun nukeAuthor() = repository.nukeAuthor()
     fun nukeTag() = repository.nukeTag()
-
 
 }

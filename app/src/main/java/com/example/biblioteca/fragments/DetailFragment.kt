@@ -65,6 +65,23 @@ class DetailFragment : Fragment() {
                 }
                 publisher.text = it.get(num).editorial
                 description.text = it.get(num).summary
+                val authors = bookViewModel.authorForBookDao.getAuthorsForBook(it.get(num).isbm)
+
+                authors.observe(this, Observer { aList ->
+                    var textAuthors = ""
+                    for (i in 0..(aList.size - 1))
+                    {
+                        textAuthors = textAuthors + aList.get(i).authorName
+                        if (i != aList.size - 1)
+                        {
+                            textAuthors = textAuthors + ", "
+                        }
+                        else{
+                            textAuthors = textAuthors + ". "
+                        }
+                    }
+                    authorsConcat.text = textAuthors
+                })
 
             })
         }

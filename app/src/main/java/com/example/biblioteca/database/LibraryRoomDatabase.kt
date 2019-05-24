@@ -5,9 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.biblioteca.database.daos.AuthorDAO
-import com.example.biblioteca.database.daos.BookDAO
-import com.example.biblioteca.database.daos.TagDAO
+import com.example.biblioteca.database.daos.*
 import com.example.biblioteca.database.entities.Author
 import com.example.biblioteca.database.entities.Book
 import com.example.biblioteca.database.entities.Tag
@@ -23,6 +21,10 @@ public abstract class LibraryRoomDatabase : RoomDatabase() {
     abstract fun bookDAO() : BookDAO
 
     abstract fun tagDAO() : TagDAO
+
+    abstract fun authorBookJoinDAO() : AuthorBookJoinDAO
+
+    abstract fun tagBookJoinDAO() : TagBookJoinDAO
 
     companion object {
         @Volatile
