@@ -8,12 +8,12 @@ import androidx.room.ForeignKey
     foreignKeys = arrayOf(
         ForeignKey(entity = Tag::class,
             parentColumns = arrayOf("id"),
-            childColumns = arrayOf("tag_id"),
+            childColumns = arrayOf("tagId"),
             onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(entity = Book::class,
             parentColumns = arrayOf("ISBM"),
-            childColumns = arrayOf("book_id"),
+            childColumns = arrayOf("bookId"),
             onDelete = ForeignKey.CASCADE
         )
     ))

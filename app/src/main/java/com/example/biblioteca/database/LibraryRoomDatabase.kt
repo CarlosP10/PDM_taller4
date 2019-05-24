@@ -6,14 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.biblioteca.database.daos.*
-import com.example.biblioteca.database.entities.Author
-import com.example.biblioteca.database.entities.Book
-import com.example.biblioteca.database.entities.Tag
+import com.example.biblioteca.database.entities.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [Author::class, Book::class, Tag::class], version = 1, exportSchema = false)
+@Database(entities = [Author::class, Book::class, Tag::class, AuthorBookJoin::class, TagBookJoin::class], version = 2, exportSchema = false)
 public abstract class LibraryRoomDatabase : RoomDatabase() {
 
     abstract fun authorDAO() : AuthorDAO
@@ -53,6 +51,8 @@ public abstract class LibraryRoomDatabase : RoomDatabase() {
                     authorPopulateDatabase(database.authorDAO())
                     bookPopulateDatabase(database.bookDAO())
                     tagPopulateDatabase(database.tagDAO())
+                    authorBookPopulate(database.authorBookJoinDAO())
+                    tagBookPopulate(database.tagBookJoinDAO())
                 }
             }
         }
@@ -93,6 +93,71 @@ public abstract class LibraryRoomDatabase : RoomDatabase() {
             bookDao.insert(book)
             book = Book("book10", "El psicoanalista", "Editorial en español", 4, "cover_image", "La historia, que pone a prueba la capacidad del protagonista para evitar su suicidio frente a la presión de un desconocido", false, 10)
             bookDao.insert(book)
+        }
+
+        suspend fun authorBookPopulate(authorBookDao:AuthorBookJoinDAO){
+            var authorBook = AuthorBookJoin(1,"book1")
+            authorBookDao.insert(authorBook)
+            authorBook = AuthorBookJoin(2,"book2")
+            authorBookDao.insert(authorBook)
+            authorBook = AuthorBookJoin(3,"book2")
+            authorBookDao.insert(authorBook)
+            authorBook = AuthorBookJoin(4,"book4")
+            authorBookDao.insert(authorBook)
+            authorBook = AuthorBookJoin(1,"book5")
+            authorBookDao.insert(authorBook)
+            authorBook = AuthorBookJoin(3,"book6")
+            authorBookDao.insert(authorBook)
+            authorBook = AuthorBookJoin(2,"book6")
+            authorBookDao.insert(authorBook)
+            authorBook = AuthorBookJoin(4,"book6")
+            authorBookDao.insert(authorBook)
+            authorBook = AuthorBookJoin(4,"book7")
+            authorBookDao.insert(authorBook)
+            authorBook = AuthorBookJoin(1,"book9")
+            authorBookDao.insert(authorBook)
+            authorBook = AuthorBookJoin(3,"book10")
+            authorBookDao.insert(authorBook)
+            authorBook = AuthorBookJoin(1,"book10")
+            authorBookDao.insert(authorBook)
+        }
+
+        suspend fun tagBookPopulate(tagBookDao:TagBookJoinDAO){
+            var tagBook = TagBookJoin(1,"book1")
+            tagBookDao.insert(tagBook)
+
+            tagBook = TagBookJoin(2,"book1")
+            tagBookDao.insert(tagBook)
+            tagBook = TagBookJoin(3,"book1")
+            tagBookDao.insert(tagBook)
+            tagBook = TagBookJoin(2,"book2")
+            tagBookDao.insert(tagBook)
+            tagBook = TagBookJoin(4,"book2")
+            tagBookDao.insert(tagBook)
+            tagBook = TagBookJoin(3,"book3")
+            tagBookDao.insert(tagBook)
+            tagBook = TagBookJoin(4,"book3")
+            tagBookDao.insert(tagBook)
+            tagBook = TagBookJoin(4,"book4")
+            tagBookDao.insert(tagBook)
+            tagBook = TagBookJoin(5,"book5")
+            tagBookDao.insert(tagBook)
+            tagBook = TagBookJoin(6,"book6")
+            tagBookDao.insert(tagBook)
+            tagBook = TagBookJoin(1,"book6")
+            tagBookDao.insert(tagBook)
+            tagBook = TagBookJoin(7,"book7")
+            tagBookDao.insert(tagBook)
+            tagBook = TagBookJoin(8,"book8")
+            tagBookDao.insert(tagBook)
+            tagBook = TagBookJoin(9,"book9")
+            tagBookDao.insert(tagBook)
+            tagBook = TagBookJoin(6,"book9")
+            tagBookDao.insert(tagBook)
+            tagBook = TagBookJoin(10,"book9")
+            tagBookDao.insert(tagBook)
+            tagBook = TagBookJoin(10,"book10")
+            tagBookDao.insert(tagBook)
         }
 
         suspend fun tagPopulateDatabase(tagDao: TagDAO){

@@ -17,6 +17,7 @@ class BookRepository(private val bookDAO: BookDAO,
     val getAllBook:LiveData<List<Book>> = bookDAO.getAllBooks()
     val getAllAuthor:LiveData<List<Author>> = authorDAO.getAllAuthors()
     val getAllTag:LiveData<List<Tag>> = tagDAO.getAllTags()
+
     fun getAllAuthorBook(isbm:String): LiveData<List<Author>> = authorBookDao.getAuthorsForBook(isbm)
     fun getAllTagsBook(isbm:String): LiveData<List<Tag>> = tagBookDao.getBooksForTag(isbm)
 

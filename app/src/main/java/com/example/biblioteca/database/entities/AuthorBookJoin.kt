@@ -11,11 +11,11 @@ import androidx.room.PrimaryKey
     foreignKeys = arrayOf(
         ForeignKey(entity = Author::class,
             parentColumns = arrayOf("id"),
-            childColumns = arrayOf("author_id"),
+            childColumns = arrayOf("authorId"),
             onDelete = CASCADE),
         ForeignKey(entity = Book::class,
             parentColumns = arrayOf("ISBM"),
-            childColumns = arrayOf("book_id"),
+            childColumns = arrayOf("bookId"),
             onDelete = CASCADE)))
 
 class AuthorBookJoin (

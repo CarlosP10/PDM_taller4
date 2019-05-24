@@ -65,6 +65,7 @@ class DetailFragment : Fragment() {
                 }
                 publisher.text = it.get(num).editorial
                 description.text = it.get(num).summary
+
                 val authors = bookViewModel.getAuthorsbyBook(it.get(num).isbm)
 
                 authors.observe(this, Observer { aList ->
@@ -80,7 +81,33 @@ class DetailFragment : Fragment() {
                             textAuthors = textAuthors + ". "
                         }
                     }
-                    authorsConcat.text = textAuthors
+                    if(textAuthors.length == 0){
+                        authorsConcat.text = "Anónimo."
+                    }else {
+                        authorsConcat.text = textAuthors
+                    }
+                })
+
+                val tags = bookViewModel.getTagsbyBook(it.get(num).isbm)
+
+                tags.observe(this, Observer { tList ->
+                    var textTags = ""
+                    for (i in 0..(tList.size - 1))
+                    {
+                        textTags = textTags + tList.get(i).tagName
+                        if (i != tList.size - 1)
+                        {
+                            textTags = textTags + ", "
+                        }
+                        else{
+                            textTags = textTags + ". "
+                        }
+                    }
+                    if(textTags.length == 0){
+                        tagsConcat.text = "Sin Etiquetas."
+                    }else {
+                        tagsConcat.text = textTags
+                    }
                 })
 
             })
