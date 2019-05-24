@@ -11,6 +11,10 @@ import com.example.biblioteca.database.entities.Tag
 
 class BookRepository(private val bookDAO: BookDAO, private val authorDAO: AuthorDAO, private val tagDAO: TagDAO){
 
+    val getAllBook:LiveData<List<Book>> = bookDAO.getAllBooks()
+    val getAllAuthor:LiveData<List<Author>> = authorDAO.getAllAuthors()
+    val getAllTag:LiveData<List<Tag>> = tagDAO.getAllTags()
+
     @WorkerThread
     suspend fun insertBook(repoBook:Book){bookDAO.insert(repoBook)}
 
@@ -19,10 +23,6 @@ class BookRepository(private val bookDAO: BookDAO, private val authorDAO: Author
 
     @WorkerThread
     suspend fun insertTag(repoTag:Tag){tagDAO.insert(repoTag)}
-
-    fun getAllBook():LiveData<List<Book>> = bookDAO.getAllBooks()
-    fun getAllAuthor():LiveData<List<Author>> = authorDAO.getAllAuthors()
-    fun getAllTag():LiveData<List<Tag>> = tagDAO.getAllTags()
 
     fun nukeBook() = bookDAO.deleteAll()
     fun nukeTag() = tagDAO.deleteAll()

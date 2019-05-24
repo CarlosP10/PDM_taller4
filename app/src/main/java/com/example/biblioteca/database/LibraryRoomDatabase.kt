@@ -15,7 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [Author::class, Book::class, Tag::class], version = 1)
+@Database(entities = [Author::class, Book::class, Tag::class], version = 1, exportSchema = false)
 public abstract class LibraryRoomDatabase : RoomDatabase() {
 
     abstract fun authorDAO() : AuthorDAO

@@ -15,41 +15,35 @@ import kotlinx.coroutines.launch
 
 class BookViewModel (app:Application):AndroidViewModel(app){
     private val repository: BookRepository
-    lateinit var scope: CoroutineScope
+    private lateinit var scope: CoroutineScope
+    val getAllBook: LiveData<List<Book>>
+    val getAllAuthor:LiveData<List<Author>>
+    val getAllTag:LiveData<List<Tag>>
     //lateinit var repository: BookRepository
 
 
-    //SE PUEDE USAR SOLO LATEINIT PERO LO HICE ASI SOLO PARA SEGUIMIENTO DEL LABO
+
     init{
         val bookDao = LibraryRoomDatabase.getDatabase(app, scope).bookDAO()
         val authorDao = LibraryRoomDatabase.getDatabase(app, scope).authorDAO()
         val tagDao = LibraryRoomDatabase.getDatabase(app, scope).tagDAO()
         repository = BookRepository(bookDao,authorDao,tagDao)
+        getAllBook = repository.getAllBook
+        getAllAuthor = repository.getAllAuthor
+        getAllTag = repository.getAllTag
     }
-
-    //------------------------BOOK----------------------------------
 
     fun insertBook(book: Book)= viewModelScope.launch(Dispatchers.IO){
         repository.insertBook(book)
     }
 
-    fun getAllBook(): LiveData<List<Book>> = repository.getAllBook()
-
-    //------------------------AUTHOR----------------------------------
-
     fun insertAuthor(author: Author)= viewModelScope.launch(Dispatchers.IO){
         repository.insertAuthor(author)
     }
 
-    fun getAllAuthor():LiveData<List<Author>> = repository.getAllAuthor()
-
-    //------------------------TAG----------------------------------
-
     fun insertTag(tag: Tag)= viewModelScope.launch(Dispatchers.IO){
         repository.insertTag(tag)
     }
-
-    fun getAllTag():LiveData<List<Tag>> = repository.getAllTag()
 
     fun nukeBook() = repository.nukeBook()
     fun nukeAuthor() = repository.nukeAuthor()
