@@ -14,14 +14,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class BookViewModel (app:Application):AndroidViewModel(app){
+
     private val repository: BookRepository
-    private lateinit var scope: CoroutineScope
+    var scope = viewModelScope
     val getAllBook: LiveData<List<Book>>
     val getAllAuthor:LiveData<List<Author>>
     val getAllTag:LiveData<List<Tag>>
-    //lateinit var repository: BookRepository
-
-
 
     init{
         val bookDao = LibraryRoomDatabase.getDatabase(app, scope).bookDAO()
@@ -33,15 +31,15 @@ class BookViewModel (app:Application):AndroidViewModel(app){
         getAllTag = repository.getAllTag
     }
 
-    fun insertBook(book: Book)= viewModelScope.launch(Dispatchers.IO){
+    fun insertBook(book: Book)= scope.launch(Dispatchers.IO){
         repository.insertBook(book)
     }
 
-    fun insertAuthor(author: Author)= viewModelScope.launch(Dispatchers.IO){
+    fun insertAuthor(author: Author)= scope.launch(Dispatchers.IO){
         repository.insertAuthor(author)
     }
 
-    fun insertTag(tag: Tag)= viewModelScope.launch(Dispatchers.IO){
+    fun insertTag(tag: Tag)= scope.launch(Dispatchers.IO){
         repository.insertTag(tag)
     }
 

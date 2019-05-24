@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -136,19 +137,24 @@ class ListFragment : Fragment() {
     }
 
     fun initRecycler(){
-        val resources = bookViewModel.getAllBook().value!!
+        bookViewModel.getAllBook.observe(this, Observer { books ->
+            books?.let {
 
-        viewManager = LinearLayoutManager(context)
+                action = View.OnClickListener { v ->
+                    comunicacion.sendData(it.get(booksRV.getChildAdapterPosition(v)))
+                }
 
-        action = View.OnClickListener { v ->
-            comunicacion.sendData(resources.get(booksRV.getChildAdapterPosition(v)))
-        }
+                viewAdapter = BookAdapter(it, action)
 
-        viewAdapter = BookAdapter(resources, action)
+                viewManager = LinearLayoutManager(context)
 
-        with(booksRV){
-            adapter = viewAdapter
-            layoutManager = viewManager
-        }
+                with(booksRV){
+                    adapter = viewAdapter
+                    layoutManager = viewManager
+                }
+
+            }
+        })
+
     }
 }
