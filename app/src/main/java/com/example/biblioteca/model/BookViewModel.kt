@@ -14,32 +14,34 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class BookViewModel (app:Application):AndroidViewModel(app){
-
     private val repository: BookRepository
-    var scope = viewModelScope
+    //private lateinit var scope: CoroutineScope
     val getAllBook: LiveData<List<Book>>
     val getAllAuthor:LiveData<List<Author>>
     val getAllTag:LiveData<List<Tag>>
+    //lateinit var repository: BookRepository
+
+
 
     init{
-        val bookDao = LibraryRoomDatabase.getDatabase(app, scope).bookDAO()
-        val authorDao = LibraryRoomDatabase.getDatabase(app, scope).authorDAO()
-        val tagDao = LibraryRoomDatabase.getDatabase(app, scope).tagDAO()
+        val bookDao = LibraryRoomDatabase.getDatabase(app, viewModelScope).bookDAO()
+        val authorDao = LibraryRoomDatabase.getDatabase(app, viewModelScope).authorDAO()
+        val tagDao = LibraryRoomDatabase.getDatabase(app, viewModelScope).tagDAO()
         repository = BookRepository(bookDao,authorDao,tagDao)
         getAllBook = repository.getAllBook
         getAllAuthor = repository.getAllAuthor
         getAllTag = repository.getAllTag
     }
 
-    fun insertBook(book: Book)= scope.launch(Dispatchers.IO){
+    fun insertBook(book: Book)= viewModelScope.launch(Dispatchers.IO){
         repository.insertBook(book)
     }
 
-    fun insertAuthor(author: Author)= scope.launch(Dispatchers.IO){
+    fun insertAuthor(author: Author)= viewModelScope.launch(Dispatchers.IO){
         repository.insertAuthor(author)
     }
 
-    fun insertTag(tag: Tag)= scope.launch(Dispatchers.IO){
+    fun insertTag(tag: Tag)= viewModelScope.launch(Dispatchers.IO){
         repository.insertTag(tag)
     }
 
