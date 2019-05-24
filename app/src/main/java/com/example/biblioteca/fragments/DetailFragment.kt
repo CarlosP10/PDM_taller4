@@ -65,7 +65,7 @@ class DetailFragment : Fragment() {
                 }
                 publisher.text = it.get(num).editorial
                 description.text = it.get(num).summary
-                val authors = bookViewModel.authorForBookDao.getAuthorsForBook(it.get(num).isbm)
+                val authors = bookViewModel.getAuthorsbyBook(it.get(num).isbm)
 
                 authors.observe(this, Observer { aList ->
                     var textAuthors = ""

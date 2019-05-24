@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.biblioteca.database.LibraryRoomDatabase
 import com.example.biblioteca.database.daos.AuthorBookJoinDAO
 import com.example.biblioteca.database.entities.Author
+import com.example.biblioteca.database.entities.AuthorBookJoin
 import com.example.biblioteca.database.entities.Book
 import com.example.biblioteca.database.entities.Tag
 import com.example.biblioteca.repository.BookRepository
@@ -20,19 +21,24 @@ class BookViewModel (app:Application):AndroidViewModel(app){
     val getAllBook: LiveData<List<Book>>
     val getAllAuthor:LiveData<List<Author>>
     val getAllTag:LiveData<List<Tag>>
-    //lateinit var repository: BookRepository
-    val authorForBookDao = LibraryRoomDatabase.getDatabase(app, viewModelScope).authorBookJoinDAO()
-    val tagForBookDao = LibraryRoomDatabase.getDatabase(app, viewModelScope).tagBookJoinDAO()
+
+
 
     init{
         val bookDao = LibraryRoomDatabase.getDatabase(app, viewModelScope).bookDAO()
         val authorDao = LibraryRoomDatabase.getDatabase(app, viewModelScope).authorDAO()
         val tagDao = LibraryRoomDatabase.getDatabase(app, viewModelScope).tagDAO()
-        repository = BookRepository(bookDao,authorDao,tagDao)
+        val authorForBookDao = LibraryRoomDatabase.getDatabase(app, viewModelScope).authorBookJoinDAO()
+        val tagForBookDao = LibraryRoomDatabase.getDatabase(app, viewModelScope).tagBookJoinDAO()
+        repository = BookRepository(bookDao,authorDao,tagDao,authorForBookDao,tagForBookDao)
         getAllBook = repository.getAllBook
         getAllAuthor = repository.getAllAuthor
         getAllTag = repository.getAllTag
+
     }
+
+    fun getAuthorsbyBook(isbm:String)= repository.getAllAuthorBook(isbm)
+    fun getTagsbyBook(isbm:String)= repository.getAllTagsBook(isbm)
 
     fun insertBook(book: Book)= viewModelScope.launch(Dispatchers.IO){
         repository.insertBook(book)

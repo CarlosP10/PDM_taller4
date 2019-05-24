@@ -1,5 +1,6 @@
 package com.example.biblioteca.database.daos
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -19,7 +20,7 @@ interface TagBookJoinDAO  {
            ON books.ISBM = tag_book_join.bookId
            WHERE tag_book_join.tagId =:tagId
            """)
-    fun getTagsForBook(tagId: Int): Array<Tag>
+    fun getTagsForBook(tagId: Int): LiveData<List<Book>>
 
     @Query("""
            SELECT * FROM tags
@@ -27,6 +28,6 @@ interface TagBookJoinDAO  {
            ON tags.id = tag_book_join.tagId
            WHERE tag_book_join.bookId =:bookId
            """)
-    fun getBooksForTag(bookId: String): Array<Book>
+    fun getBooksForTag(bookId: String): LiveData<List<Tag>>
 
 }
