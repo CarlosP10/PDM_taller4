@@ -23,4 +23,14 @@ interface BookDAO {
 
     @Query("UPDATE books SET favorite = NOT (SELECT favorite FROM books WHERE ISBM =:isbm) WHERE ISBM =:isbm")
     suspend fun updateFavBook(isbm: String)
+
+    @Query("""SELECT ISBM, book_name, editorial, author, cover, summary, favorite, tag
+        FROM books
+        INNER JOIN author_book_join ON books.ISBM = author_book_join.bookId
+        INNER JOIN authors ON authors.id = author_book_join.authorId
+        INNER JOIN tag_book_join ON books.ISBM = tag_book_join.bookId
+        INNER JOIN tags ON tags.id = tag_book_join.tagId
+        WHERE books.ISBM LIKE :text OR books.book_name LIKE :text OR authors.author_name LIKE :text OR  tags.tag_name LIKE :text
+        GROUP BY ISBM""")
+    fun getBooksByText(text: String): LiveData<List<Book>>
 }

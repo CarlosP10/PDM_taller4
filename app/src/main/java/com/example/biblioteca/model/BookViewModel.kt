@@ -37,6 +37,20 @@ class BookViewModel (app:Application):AndroidViewModel(app){
 
     }
 
+    fun changeBookList(opc: String){
+        getAllBook = when(opc){
+            "all" -> repository.getAllBook
+            "fav" -> repository.getAllFavBook
+            else -> repository.getAllBook
+        }
+    }
+
+    fun getBooksByText(text: String) = repository.getBooksByText(text)
+
+    fun setBooksByText(text: String){
+        getAllBook = getBooksByText(text)
+    }
+
     fun updateFavBook(isbm: String) = viewModelScope.launch(Dispatchers.IO){ repository.updateFavBook(isbm) }
 
     fun getAuthorsbyBook(isbm:String)= repository.getAllAuthorBook(isbm)

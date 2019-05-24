@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.biblioteca.R
 import com.example.biblioteca.adapters.BookAdapter
+import com.example.biblioteca.database.entities.Book
 import com.example.biblioteca.interfaces.FragmentCommunication
 import com.example.biblioteca.model.BookViewModel
 import kotlinx.android.synthetic.main.fragment_list.*
@@ -54,6 +55,10 @@ class ListFragment : Fragment() {
     private lateinit var viewAdapter:BookAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
 
+    private lateinit var bookList: List<Book>
+
+    private var filter = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -61,7 +66,9 @@ class ListFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
+
         bookViewModel = ViewModelProviders.of(this).get(BookViewModel::class.java)
+
 
     }
 
@@ -77,12 +84,38 @@ class ListFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        action = View.OnClickListener { v ->
+            comunicacion.sendData(booksRV.getChildAdapterPosition(v))
+        }
+
+        actionFav = View.OnClickListener { v ->
+            updateFav(v.tag.toString())
+            println("Favorito modificado: "+v.tag.toString())
+        }
+
+
+        viewAdapter = BookAdapter(listOf(Book("", "", "", 1, "", "", false, 1)), action, actionFav)
+
+        bookViewModel.getAllBook.observe(this, Observer { books ->
+            books?.let {
+
+                bookList = it
+
+                viewAdapter.setData(bookList)
+
+            }
+        })
+
+        initRecycler()
+
         checkBoxFav.setOnClickListener{ v ->
             if(checkBoxFav.isChecked){
                 println("FAVS")
+                bookViewModel.changeBookList("fav")
                 //TODO Seleccionar favoritos
 
             }else{
+                bookViewModel.changeBookList("all")
                 //TODO Seleccionar todos
             }
         }
@@ -98,14 +131,16 @@ class ListFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
-                //TODO Filtrar por busqueda
-                println(s)
+                filter = s.toString()
+                if(filter.isNotBlank() && filter.isNotEmpty()){
+                    bookViewModel.setBooksByText("%"+filter+"%")
+                }
 
             }
 
         })
 
-        initRecycler()
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -173,29 +208,14 @@ class ListFragment : Fragment() {
     }
 
     fun initRecycler(){
-        //TODO arreglar RV
-        bookViewModel.getAllBook.observe(this, Observer { books ->
-            books?.let {
 
-                action = View.OnClickListener { v ->
-                    comunicacion.sendData(booksRV.getChildAdapterPosition(v))
-                }
+        viewManager = LinearLayoutManager(context)
 
-                actionFav = View.OnClickListener { v ->
-                   updateFav(v.tag.toString())
-                }
-
-                viewAdapter = BookAdapter(it, action, actionFav)
-
-                viewManager = LinearLayoutManager(context)
-
-                with(booksRV){
-                    adapter = viewAdapter
-                    layoutManager = viewManager
-                }
-
-            }
-        })
+        with(booksRV){
+            setHasFixedSize(true)
+            adapter = viewAdapter
+            layoutManager = viewManager
+        }
 
     }
 }

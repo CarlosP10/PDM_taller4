@@ -10,6 +10,10 @@ import com.example.biblioteca.R
 import com.example.biblioteca.database.entities.Book
 import com.example.biblioteca.interfaces.RecyclerViewClickListener
 import kotlinx.android.synthetic.main.list_item.view.*
+import android.R.attr.data
+
+
+
 
 class BookAdapter(var items: List<Book>, mListener: View.OnClickListener, mFavListener: View.OnClickListener): RecyclerView.Adapter<BookAdapter.BookHolder>() {
 
@@ -55,8 +59,16 @@ class BookAdapter(var items: List<Book>, mListener: View.OnClickListener, mFavLi
             if (item.favorite){
                 btn_fav.background = ContextCompat.getDrawable(context, R.drawable.btn_bg_fav)
                 btn_fav.text = "X"
+            }else{
+                btn_fav.background = ContextCompat.getDrawable(context, R.drawable.btn_bg)
+                btn_fav.text = "Fav"
             }
         }
 
+    }
+
+    fun setData(newData: List<Book>) {
+        this.items = newData
+        notifyDataSetChanged()
     }
 }
