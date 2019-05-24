@@ -21,10 +21,10 @@ import java.nio.file.WatchEvent
 
 class MainActivity : AppCompatActivity(), ListFragment.OnFragmentInteractionListener, DetailFragment.OnFragmentInteractionListener, FragmentCommunication {
 
-    override fun sendData(data: Book) {
+    override fun sendData(data: Int) {
         var detalle = DetailFragment()
         var datos = Bundle()
-        datos.putString("BookID", data.bookName)
+        datos.putInt("BookID", data)
         detalle?.arguments = datos
 
         if(detailContainer != null){
@@ -51,11 +51,11 @@ class MainActivity : AppCompatActivity(), ListFragment.OnFragmentInteractionList
 
         var listFragment = ListFragment()
 
-        if(savedInstanceState == null){
-            supportFragmentManager.beginTransaction()
-                    .add(R.id.mainContainer, listFragment)
-                    .commit()
-        }
+
+        supportFragmentManager.beginTransaction()
+                .add(R.id.mainContainer, listFragment)
+                .commit()
+
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

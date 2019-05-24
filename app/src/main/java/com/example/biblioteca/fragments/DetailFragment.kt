@@ -7,7 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.example.biblioteca.R
+import com.example.biblioteca.model.BookViewModel
 import kotlinx.android.synthetic.main.fragment_detail.*
 
 
@@ -26,14 +29,18 @@ private const val ARG_PARAM1 = "BookID"
  */
 class DetailFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
+    private var param1: Int? = null
     private var listener: OnFragmentInteractionListener? = null
+
+    private lateinit var bookViewModel: BookViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
+            param1 = it.getInt(ARG_PARAM1)
         }
+
+        bookViewModel = ViewModelProviders.of(this).get(BookViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +57,16 @@ class DetailFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         if(param1 != null){
-            test.text = param1
+            val num = param1!!
+            bookViewModel.getAllBook.observe(this, Observer {
+                name.text = it.get(num).bookName
+                if (it.get(num).favorite){
+                    name.text = name.text.toString()+"\n(Favorito)"
+                }
+                publisher.text = it.get(num).editorial
+                description.text = it.get(num).summary
+
+            })
         }
     }
 
@@ -95,7 +111,7 @@ class DetailFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(param1: String) =
                 DetailFragment().apply {
                     arguments = Bundle().apply {
                         putString(ARG_PARAM1, param1)

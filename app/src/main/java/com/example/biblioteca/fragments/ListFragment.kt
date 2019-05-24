@@ -141,7 +141,7 @@ class ListFragment : Fragment() {
             books?.let {
 
                 action = View.OnClickListener { v ->
-                    comunicacion.sendData(it.get(booksRV.getChildAdapterPosition(v)))
+                    comunicacion.sendData(booksRV.getChildAdapterPosition(v))
                 }
 
                 viewAdapter = BookAdapter(it, action)
