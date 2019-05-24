@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -42,6 +44,7 @@ class ListFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
 
     private lateinit var action: View.OnClickListener
+    private lateinit var actionFav: View.OnClickListener
 
     private lateinit var bookViewModel: BookViewModel
 
@@ -73,6 +76,35 @@ class ListFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+
+        checkBoxFav.setOnClickListener{ v ->
+            if(checkBoxFav.isChecked){
+                println("FAVS")
+                //TODO Seleccionar favoritos
+
+            }else{
+                //TODO Seleccionar todos
+            }
+        }
+
+        searchBar.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+                //TODO Filtrar por busqueda
+                println(s)
+
+            }
+
+        })
+
         initRecycler()
     }
 
@@ -112,7 +144,7 @@ class ListFragment : Fragment() {
      * for more information.
      */
     interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+
         fun onFragmentInteraction(uri: Uri)
     }
 
@@ -125,7 +157,7 @@ class ListFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment ListFragment.
          */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             ListFragment().apply {
@@ -136,7 +168,12 @@ class ListFragment : Fragment() {
             }
     }
 
+    fun updateFav(isbm: String){
+        bookViewModel.updateFavBook(isbm)
+    }
+
     fun initRecycler(){
+        //TODO arreglar RV
         bookViewModel.getAllBook.observe(this, Observer { books ->
             books?.let {
 
@@ -144,7 +181,11 @@ class ListFragment : Fragment() {
                     comunicacion.sendData(booksRV.getChildAdapterPosition(v))
                 }
 
-                viewAdapter = BookAdapter(it, action)
+                actionFav = View.OnClickListener { v ->
+                   updateFav(v.tag.toString())
+                }
+
+                viewAdapter = BookAdapter(it, action, actionFav)
 
                 viewManager = LinearLayoutManager(context)
 

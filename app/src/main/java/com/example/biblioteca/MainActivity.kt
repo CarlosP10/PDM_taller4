@@ -9,10 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProviders
 import com.example.biblioteca.database.entities.Book
 import com.example.biblioteca.fragments.DetailFragment
 import com.example.biblioteca.fragments.ListFragment
 import com.example.biblioteca.interfaces.FragmentCommunication
+import com.example.biblioteca.model.BookViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -65,24 +67,6 @@ class MainActivity : AppCompatActivity(), ListFragment.OnFragmentInteractionList
 
     override fun onStart() {
         super.onStart()
-
-        searchBar.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-                //TODO: Actualizar RecyclerView al detectar cambios en el texto
-                Toast.makeText(this@MainActivity, s, Toast.LENGTH_SHORT).show()
-
-            }
-
-        })
 
     }
 

@@ -16,7 +16,16 @@
         android:background="#FFF"
         android:textSize="18sp"
         android:padding="10dp"
-        android:hint="Type Books, Authors..."/>
+        android:hint="Buscar Libros, autores..."/>
+
+    <CheckBox
+        android:id="@+id/checkBoxFav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Solo ver favoritos"
+        android:layout_gravity="center"/>
 
 
     <androidx.recyclerview.widget.RecyclerView

@@ -5,5 +5,6 @@ import android.view.View
 interface RecyclerViewClickListener {
 
     fun onClick(listener: View.OnClickListener)
+    fun onFavClick(listener: View.OnClickListener)
 
 }

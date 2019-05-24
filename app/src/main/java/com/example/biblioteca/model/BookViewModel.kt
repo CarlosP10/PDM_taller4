@@ -16,9 +16,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class BookViewModel (app:Application):AndroidViewModel(app){
-    private val repository: BookRepository
+    val repository: BookRepository
     //private lateinit var scope: CoroutineScope
-    val getAllBook: LiveData<List<Book>>
+    var getAllBook: LiveData<List<Book>>
     val getAllAuthor:LiveData<List<Author>>
     val getAllTag:LiveData<List<Tag>>
 
@@ -36,6 +36,8 @@ class BookViewModel (app:Application):AndroidViewModel(app){
         getAllTag = repository.getAllTag
 
     }
+
+    fun updateFavBook(isbm: String) = viewModelScope.launch(Dispatchers.IO){ repository.updateFavBook(isbm) }
 
     fun getAuthorsbyBook(isbm:String)= repository.getAllAuthorBook(isbm)
     fun getTagsbyBook(isbm:String)= repository.getAllTagsBook(isbm)
