@@ -7,16 +7,13 @@ import com.example.biblioteca.database.daos.AuthorBookJoinDAO
 import com.example.biblioteca.database.entities.*
 import com.example.biblioteca.model.BookViewModel
 import kotlinx.android.synthetic.main.activity_new_book.*
+import java.lang.Exception
 
 
 class NewBookActivity : AppCompatActivity() {
 
     private lateinit var bookViewModel: BookViewModel
     private lateinit var book : Book
-    private lateinit var authorBook : AuthorBookJoin
-    private lateinit var tagBook : TagBookJoin
-    private lateinit var author : Author
-    private lateinit var tag : Tag
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,26 +22,71 @@ class NewBookActivity : AppCompatActivity() {
         bookViewModel = ViewModelProviders.of(this).get(BookViewModel::class.java)
 
         bt_add.setOnClickListener {
-            //val authors = bookViewModel.getAllAuthor.value?.size!!.plus(1)
-            //val tags = bookViewModel.getAllTag.value?.size!!.plus(1)
+
+            //Se crea el libro a guardar
+
             book = Book(et_isbn.text.toString(),
                 et_tittle.text.toString(),
                 et_editorial.text.toString(),
-                //TODO: Yo queria solo mandar a llamar el total de la lista authors para solo sumarle 1 y que ese sea el nuevo id de mi Author y Tag
                 "cover_image",
                 et_summary.text.toString(),
                 false
             )
-            author = Author(3,et_author.text.toString())
-            tag = Tag(10,et_tag.text.toString())
-            //authorBook = AuthorBookJoin(5,et_isbn.text.toString())
-            //tagBook = TagBookJoin(11,et_isbn.text.toString())
 
-            bookViewModel.insertBook(book)
-            bookViewModel.insertAuthor(author)
-            bookViewModel.insertTag(tag)
-            //bookViewModel.insertAuthorBook(authorBook)
-            //bookViewModel.insertTagBook(tagBook)
+            //Se inserta el libro para asegurarnos que ya exista el ISBN que se usa para las tablas cruz.
+            try {
+                bookViewModel.insertBook(book)
+            }catch (e: Exception){
+                //TODO Aqui notificar al usuario que el ID del libro ya existe.
+                println("El ISBN ya ha sido asignado.")
+            }
+
+
+            // Inserción de autores en tabla cruz
+
+            //Se toma el texto en el EditText
+            val authorInput = et_author.text.toString()
+            //Se separan los IDs por comas
+            val authorArray = authorInput.split(",")
+
+            //Se recorre el arreglo
+            for (i in 0..(authorArray.size-1)){
+                //Este try es para recoger errores como que se ingrese texto en lugar de enteros o que no exista el autor especificado.
+                try {
+                    //Creo el elemento de la tabla cruz a insertar (recojo un elemento del arreglo, le hago trim para quitar
+                    // los espacios a los lados del String y lo convierto a Int, luego tomo el ISBN del libro)
+                    val auth = AuthorBookJoin(authorArray.get(i).trim().toInt(), et_isbn.text.toString())
+                    //El if que esta comentariado es el error de que no se puede acceder a la base de datos desde el main thread
+                    //En sí no importa porque es una validación que exista el autor antes de insertar, pero si no existe
+                    //solo inserta y el Try Catch se encarga de no crashear la app, así que no se guarda el insert y cumple la misma función.
+
+                    //if(bookViewModel.getAuthor(authorArray.get(i).trim().toInt()).id != null){
+                        //Se inserta el autor
+                        bookViewModel.insertAuthorBook(auth)
+                    //}
+                }catch (e: Exception){
+                    println("Error!!!!!!!!!!!!!!!!!!!!!!!")
+                    println(e)
+                }
+            }
+
+            // Inserción de etiquetas en tabla cruz
+            //El mismo proceso de arriba.
+            val tagInput = et_tag.text.toString()
+            val tagArray = tagInput.split(",")
+
+            for (i in 0..(tagArray.size-1)){
+                try {
+                    val tag =TagBookJoin(tagArray.get(i).trim().toInt(), et_isbn.text.toString())
+                    //if(bookViewModel.getTag(tagArray.get(i).trim().toInt()) != null){
+                        bookViewModel.insertTagBook(tag)
+                    //}
+                }catch (e: Exception){
+                    println("Error!!!!!!!!!!!!!!!!!!!!!!!")
+                    println(e)
+                }
+            }
+
         }
     }
 }

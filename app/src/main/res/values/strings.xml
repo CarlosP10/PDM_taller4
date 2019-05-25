@@ -7,12 +7,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ingresar_datos">Ingresar datos</string>
-    <string name="titulo">Title:</string>
-    <string name="autores">Author(s):</string>
+    <string name="titulo">Título:</string>
+    <string name="autores">Autores (Use comas):</string>
     <string name="edicion">Edition</string>
-    <string name="editoriales">Publishers:</string>
-    <string name="resumen">Summary:</string>
+    <string name="editoriales">Editorial:</string>
+    <string name="resumen">Decripción</string>
     <string name="isbn">ISBN:</string>
-    <string name="agregar">add</string>
-    <string name="tag">Tag:</string>
+    <string name="agregar">Guardar</string>
+    <string name="tag">Etiquetas (Use comas):</string>
 </resources>

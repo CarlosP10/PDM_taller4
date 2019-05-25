@@ -69,11 +69,18 @@
                 android:layout_margin="@dimen/margin_tv"
                 android:inputType="text"/>
 
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(Puede consultar los IDs de autores y etiquetas más abajo)"
+                android:layout_margin="15dp"
+                android:textColor="#000"/>
+
         <Button
                 android:id="@+id/bt_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ADD"
+                android:text="Agregar"
                 android:textAllCaps="true"
                 android:inputType="text"/>
 

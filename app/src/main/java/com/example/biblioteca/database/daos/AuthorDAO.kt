@@ -17,4 +17,7 @@ interface AuthorDAO {
 
     @Query("SELECT * FROM authors ORDER BY author_name ASC")
     fun getAllAuthors(): LiveData<List<Author>>
+
+    @Query("SELECT * FROM authors WHERE id = :num")
+    fun getAuthor(num: Int): Author
 }

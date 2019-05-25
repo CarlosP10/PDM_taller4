@@ -44,6 +44,10 @@ class BookViewModel (app:Application):AndroidViewModel(app){
 
     fun getBooksByText(text: String) = repository.getBooksByText(text)
 
+    fun getAuthor(num: Int) = repository.getAuthor(num)
+
+    fun getTag(num: Int) = repository.getTag(num)
+
     fun setBooksByText(text: String){
         getAllBook = getBooksByText(text)
     }

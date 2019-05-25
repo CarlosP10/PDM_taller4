@@ -11,7 +11,7 @@ import com.example.biblioteca.database.entities.Book
 @Dao
 interface AuthorBookJoinDAO  {
     @Insert
-    fun insert(playlistSongJoin: AuthorBookJoin)
+    suspend fun insert(playlistSongJoin: AuthorBookJoin)
 
     //Obtain books for an Author
     @Query("""

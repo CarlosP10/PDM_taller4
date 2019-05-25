@@ -17,4 +17,7 @@ interface TagDAO {
 
     @Query("SELECT * FROM tags ORDER BY tag_name ASC")
     fun getAllTags(): LiveData<List<Tag>>
+
+    @Query("SELECT * FROM tags WHERE id = :num")
+    fun getTag(num: Int): Tag
 }

@@ -11,7 +11,7 @@ import com.example.biblioteca.database.entities.TagBookJoin
 @Dao
 interface TagBookJoinDAO  {
     @Insert
-    fun insert(tagBookJoin: TagBookJoin)
+    suspend fun insert(tagBookJoin: TagBookJoin)
 
     @Query("""
            SELECT * FROM books
