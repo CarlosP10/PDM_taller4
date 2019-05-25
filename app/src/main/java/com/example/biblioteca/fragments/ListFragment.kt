@@ -94,7 +94,7 @@ class ListFragment : Fragment() {
         }
 
 
-        viewAdapter = BookAdapter(listOf(Book("", "", "", 1, "", "", false, 1)), action, actionFav)
+        viewAdapter = BookAdapter(listOf(Book("", "", "", "", "", false)), action, actionFav)
 
         bookViewModel.getAllBook.observe(this, Observer { books ->
             books?.let {

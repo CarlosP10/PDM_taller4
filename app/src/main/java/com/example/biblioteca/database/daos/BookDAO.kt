@@ -24,7 +24,7 @@ interface BookDAO {
     @Query("UPDATE books SET favorite = NOT (SELECT favorite FROM books WHERE ISBM =:isbm) WHERE ISBM =:isbm")
     suspend fun updateFavBook(isbm: String)
 
-    @Query("""SELECT ISBM, book_name, editorial, author, cover, summary, favorite, tag
+    @Query("""SELECT ISBM, book_name, editorial, cover, summary, favorite
         FROM books
         INNER JOIN author_book_join ON books.ISBM = author_book_join.bookId
         INNER JOIN authors ON authors.id = author_book_join.authorId

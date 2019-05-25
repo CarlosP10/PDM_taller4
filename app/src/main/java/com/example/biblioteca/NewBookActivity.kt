@@ -30,12 +30,9 @@ class NewBookActivity : AppCompatActivity() {
                 et_tittle.text.toString(),
                 et_editorial.text.toString(),
                 //TODO: Yo queria solo mandar a llamar el total de la lista authors para solo sumarle 1 y que ese sea el nuevo id de mi Author y Tag
-                /*authors*/1,
                 "cover_image",
                 et_summary.text.toString(),
-                false,
-                1
-                //tags
+                false
             )
             author = Author(/*authors*/1,et_author.text.toString())
             tag = Tag(/*tags*/1,et_tag.text.toString())
