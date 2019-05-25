@@ -6,10 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.biblioteca.database.LibraryRoomDatabase
 import com.example.biblioteca.database.daos.AuthorBookJoinDAO
-import com.example.biblioteca.database.entities.Author
-import com.example.biblioteca.database.entities.AuthorBookJoin
-import com.example.biblioteca.database.entities.Book
-import com.example.biblioteca.database.entities.Tag
+import com.example.biblioteca.database.entities.*
 import com.example.biblioteca.repository.BookRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -66,6 +63,14 @@ class BookViewModel (app:Application):AndroidViewModel(app){
 
     fun insertTag(tag: Tag)= viewModelScope.launch(Dispatchers.IO){
         repository.insertTag(tag)
+    }
+
+    fun insertAuthorBook(authorBook: AuthorBookJoin)= viewModelScope.launch(Dispatchers.IO){
+        repository.insertAuthorBook(authorBook)
+    }
+
+    fun insertTagBook(tagBook: TagBookJoin)= viewModelScope.launch(Dispatchers.IO){
+        repository.insertTagBook(tagBook)
     }
 
     fun nukeBook() = repository.nukeBook()

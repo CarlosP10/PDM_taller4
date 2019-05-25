@@ -3,10 +3,7 @@ package com.example.biblioteca.repository
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import com.example.biblioteca.database.daos.*
-import com.example.biblioteca.database.entities.Author
-import com.example.biblioteca.database.entities.AuthorBookJoin
-import com.example.biblioteca.database.entities.Book
-import com.example.biblioteca.database.entities.Tag
+import com.example.biblioteca.database.entities.*
 
 class BookRepository(private val bookDAO: BookDAO,
                      private val authorDAO: AuthorDAO,
@@ -32,6 +29,12 @@ class BookRepository(private val bookDAO: BookDAO,
 
     @WorkerThread
     suspend fun insertTag(repoTag:Tag){tagDAO.insert(repoTag)}
+
+    @WorkerThread
+    suspend fun insertAuthorBook(repoAuthor:AuthorBookJoin){authorBookDao.insert(repoAuthor)}
+
+    @WorkerThread
+    suspend fun insertTagBook(repoTag:TagBookJoin){tagBookDao.insert(repoTag)}
 
     fun nukeBook() = bookDAO.deleteAll()
     fun nukeTag() = tagDAO.deleteAll()
