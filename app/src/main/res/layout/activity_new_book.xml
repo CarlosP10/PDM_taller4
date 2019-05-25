@@ -1,27 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.biblioteca.NewBookActivity"
+        android:orientation="vertical">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical" android:layout_width="match_parent"
-              android:layout_height="match_parent">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:layout_gravity="center"
+                  android:gravity="center">
 
-    <EditText
-            android:id="@+id/edit_book"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:hint="@string/hint_book"
-            android:inputType="textAutoComplete"
-            android:padding="@dimen/small_padding"
-            android:layout_marginBottom="@dimen/big_padding"
-            android:layout_marginTop="@dimen/big_padding"
-            android:textSize="18sp" />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ingresar_datos"
+                android:textSize="@dimen/title_size"
+                android:textColor="#000"
+                android:layout_margin="@dimen/margin_tv"/>
 
-    <Button
-            android:id="@+id/button_save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="@string/button_save"
-            android:textColor="@color/buttonLabel" />
+        <EditText
+                android:id="@+id/et_tittle"
+                android:layout_width= "@dimen/et_width"
+                android:layout_height="wrap_content"
+                android:hint="@string/titulo"
+                android:layout_margin="@dimen/margin_tv"
+                android:inputType="text"/>
 
-</LinearLayout>
+        <EditText
+                android:id="@+id/et_author"
+                android:layout_width= "@dimen/et_width"
+                android:layout_height="wrap_content"
+                android:hint="@string/autores"
+                android:layout_margin="@dimen/margin_tv"
+                android:inputType="text"
+        />
+
+        <EditText
+                android:id="@+id/et_edition"
+                android:layout_width= "@dimen/et_width"
+                android:layout_height="wrap_content"
+                android:hint="@string/edicion"
+                android:layout_margin="@dimen/margin_tv"
+                android:inputType="number"/>
+
+        <EditText
+                android:id="@+id/et_editorial"
+                android:layout_width= "@dimen/et_width"
+                android:layout_height="wrap_content"
+                android:hint="@string/editoriales"
+                android:layout_margin="@dimen/margin_tv"
+                android:inputType="text"/>
+
+        <EditText
+                android:id="@+id/et_summary"
+                android:layout_width= "@dimen/et_width"
+                android:layout_height="wrap_content"
+                android:hint="@string/resumen"
+                android:layout_margin="@dimen/margin_tv"
+                android:inputType="text"/>
+
+        <EditText
+                android:id="@+id/et_isbn"
+                android:layout_width= "@dimen/et_width"
+                android:layout_height="wrap_content"
+                android:hint="@string/isbn"
+                android:layout_margin="@dimen/margin_tv"
+                android:inputType="text"/>
+
+        <EditText
+                android:id="@+id/et_tag"
+                android:layout_width= "@dimen/et_width"
+                android:layout_height="wrap_content"
+                android:hint="@string/tag"
+                android:layout_margin="@dimen/margin_tv"
+                android:inputType="text"/>
+
+        <Button
+                android:id="@+id/bt_agregar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ADD"
+                android:textAllCaps="true"
+                android:inputType="text"/>
+
+
+    </LinearLayout>
+
+
+</ScrollView>
