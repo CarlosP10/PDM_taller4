@@ -1,5 +1,6 @@
 package com.example.biblioteca
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
@@ -60,8 +61,8 @@ class MainActivity : AppCompatActivity(), ListFragment.OnFragmentInteractionList
 
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            val intent = Intent(this@MainActivity, NewBookActivity::class.java)
+            startActivity(intent)
         }
     }
 
