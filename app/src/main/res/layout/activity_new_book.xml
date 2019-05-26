@@ -72,15 +72,14 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="(Puede consultar los IDs de autores y etiquetas más abajo)"
+                android:text="IDs de autores y etiquetas:"
                 android:layout_margin="5dp"
                 android:textColor="#000"/>
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="6">
+                android:orientation="horizontal">
 
                 <TextView
                         android:layout_width="0dp"
@@ -102,8 +101,7 @@
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="6">
+                    android:orientation="horizontal">
 
                 <TextView
                         android:layout_width="0dp"

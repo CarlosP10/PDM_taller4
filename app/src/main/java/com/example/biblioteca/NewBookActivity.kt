@@ -122,13 +122,10 @@ class NewBookActivity : AppCompatActivity() {
             {
                 indexAuthors = indexAuthors + tList[i].id.toString()
                 textAuthors = textAuthors + tList[i].authorName
-                auxText = auxText + tList[i].id.toString() + " - " + tList[i].authorName
+                auxText = auxText + "(" +tList[i].id.toString() + ") " + tList[i].authorName
                 if (i != tList.size - 1)
                 {
                     auxText = auxText + ", "
-                }
-                else{
-                    auxText = auxText + ". "
                 }
             }
             if(auxText.length == 0){
@@ -146,13 +143,10 @@ class NewBookActivity : AppCompatActivity() {
             {
                 indexTags = indexTags + aList[i].id.toString()
                 textTags = textTags + aList[i].tagName
-                auxText = auxText + aList[i].id.toString() + " - " + aList[i].tagName
+                auxText = auxText + "(" +aList[i].id.toString() + ") " + aList[i].tagName
                 if (i != aList.size - 1)
                 {
                     auxText = auxText + ", "
-                }
-                else{
-                    auxText = auxText + ". "
                 }
             }
             if(auxText.length == 0){

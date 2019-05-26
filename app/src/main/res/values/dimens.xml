@@ -2,7 +2,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="small_padding">6dp</dimen>
     <dimen name="big_padding">16dp</dimen>
-    <dimen name="margin_tv">5dp</dimen>
-    <dimen name="title_size">25sp</dimen>
+    <dimen name="margin_tv">2dp</dimen>
+    <dimen name="title_size">20sp</dimen>
     <dimen name="et_width">280dp</dimen>
 </resources>
