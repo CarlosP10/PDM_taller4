@@ -113,7 +113,54 @@ class NewBookActivity : AppCompatActivity() {
                 Toast.makeText(this, "Ha ocurrido un problema, revise que el ISBM no esté registrado.", Toast.LENGTH_LONG).show()
             }
         }
-        //val authors = bookViewModel.getAllAuthor()
+
+        bookViewModel.getAllAuthor.observe(this, Observer { tList ->
+            var textAuthors = ""
+            var indexAuthors = ""
+            var auxText = ""
+            for (i in 0..(tList.size - 1))
+            {
+                indexAuthors = indexAuthors + tList[i].id.toString()
+                textAuthors = textAuthors + tList[i].authorName
+                auxText = auxText + tList[i].id.toString() + " - " + tList[i].authorName
+                if (i != tList.size - 1)
+                {
+                    auxText = auxText + ", "
+                }
+                else{
+                    auxText = auxText + ". "
+                }
+            }
+            if(auxText.length == 0){
+                sv_authors.text = "Sin Autores."
+            }else {
+                sv_authors.text = auxText
+            }
+        })
+
+       /* bookViewModel.getAllTag.observe(this, Observer { tList ->
+            var textTags = ""
+            var indexTags = ""
+            var auxText = ""
+            for (i in 0..(tList.size - 1))
+            {
+                indexTags += tList[i].id.toString()
+                textTags += tList[i].tagName
+                auxText += indexTags + " - " + textTags
+                if (i != tList.size - 1)
+                {
+                    auxText =  auxText + ", "
+                }
+                else{
+                    textTags = textTags + ". "
+                }
+            }
+            if(textTags.length == 0){
+                sv_authors.text = "Sin Etiquetas."
+            }else {
+                sv_authors.text = textTags
+            }
+        })*/
     }
 
 }
