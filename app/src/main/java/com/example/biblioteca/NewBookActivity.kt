@@ -2,6 +2,7 @@ package com.example.biblioteca
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.example.biblioteca.database.daos.AuthorBookJoinDAO
 import com.example.biblioteca.database.entities.*
@@ -23,6 +24,8 @@ class NewBookActivity : AppCompatActivity() {
 
         bt_add.setOnClickListener {
 
+            var bookSuccess = true
+
             //Se crea el libro a guardar
 
             book = Book(et_isbn.text.toString(),
@@ -38,6 +41,7 @@ class NewBookActivity : AppCompatActivity() {
                 bookViewModel.insertBook(book)
             }catch (e: Exception){
                 //TODO Aqui notificar al usuario que el ID del libro ya existe.
+                bookSuccess = false
                 println("El ISBN ya ha sido asignado.")
             }
 
@@ -85,6 +89,21 @@ class NewBookActivity : AppCompatActivity() {
                     println("Error!!!!!!!!!!!!!!!!!!!!!!!")
                     println(e)
                 }
+            }
+
+            if(bookSuccess){
+
+                et_author.text.clear()
+                et_editorial.text.clear()
+                et_isbn.text.clear()
+                et_summary.text.clear()
+                et_tag.text.clear()
+                et_tittle.text.clear()
+
+                Toast.makeText(this, "Se ha registrado el nuevo libro.", Toast.LENGTH_LONG).show()
+
+            }else{
+                Toast.makeText(this, "Ha ocurrido un problema, revise que el ISBM no esté registrado.", Toast.LENGTH_LONG).show()
             }
 
         }
