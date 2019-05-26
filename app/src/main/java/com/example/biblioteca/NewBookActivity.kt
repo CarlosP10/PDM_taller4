@@ -138,29 +138,29 @@ class NewBookActivity : AppCompatActivity() {
             }
         })
 
-       /* bookViewModel.getAllTag.observe(this, Observer { tList ->
+        bookViewModel.getAllTag.observe(this, Observer { aList ->
             var textTags = ""
             var indexTags = ""
             var auxText = ""
-            for (i in 0..(tList.size - 1))
+            for (i in 0..(aList.size - 1))
             {
-                indexTags += tList[i].id.toString()
-                textTags += tList[i].tagName
-                auxText += indexTags + " - " + textTags
-                if (i != tList.size - 1)
+                indexTags = indexTags + aList[i].id.toString()
+                textTags = textTags + aList[i].tagName
+                auxText = auxText + aList[i].id.toString() + " - " + aList[i].tagName
+                if (i != aList.size - 1)
                 {
-                    auxText =  auxText + ", "
+                    auxText = auxText + ", "
                 }
                 else{
-                    textTags = textTags + ". "
+                    auxText = auxText + ". "
                 }
             }
-            if(textTags.length == 0){
-                sv_authors.text = "Sin Etiquetas."
+            if(auxText.length == 0){
+                sv_tags.text = "Sin Autores."
             }else {
-                sv_authors.text = textTags
+                sv_tags.text = auxText
             }
-        })*/
+        })
     }
 
 }
