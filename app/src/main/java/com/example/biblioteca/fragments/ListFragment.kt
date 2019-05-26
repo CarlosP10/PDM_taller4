@@ -81,6 +81,43 @@ class ListFragment : Fragment() {
         return vista
     }
 
+    fun setObservers(opc: Int){
+        if(opc == 1){
+            checkBoxFav.isChecked = false
+            bookViewModel.getAllBook.observe(this, Observer { books ->
+                books?.let {
+
+                    bookList = it
+
+                    viewAdapter.setData(bookList)
+
+                }
+            })
+
+        }else if (opc == 2){
+            bookViewModel.getAllFavs.observe(this, Observer { books ->
+                books?.let {
+
+                    bookList = it
+
+                    viewAdapter.setData(bookList)
+
+                }
+            })
+        }else if (opc == 3){
+            checkBoxFav.isChecked = false
+            bookViewModel.getAllSpecific.observe(this, Observer { books ->
+                books?.let {
+
+                    bookList = it
+
+                    viewAdapter.setData(bookList)
+
+                }
+            })
+        }
+    }
+
     override fun onStart() {
         super.onStart()
 
@@ -96,26 +133,17 @@ class ListFragment : Fragment() {
 
         viewAdapter = BookAdapter(listOf(Book("", "", "", "", "", false)), action, actionFav)
 
-        bookViewModel.getAllBook.observe(this, Observer { books ->
-            books?.let {
-
-                bookList = it
-
-                viewAdapter.setData(bookList)
-
-            }
-        })
+        setObservers(1)
 
         initRecycler()
 
         checkBoxFav.setOnClickListener{ v ->
             if(checkBoxFav.isChecked){
-                println("FAVS")
-                bookViewModel.changeBookList("fav")
+                setObservers(2)
                 //TODO Seleccionar favoritos
 
             }else{
-                bookViewModel.changeBookList("all")
+                setObservers(1)
                 //TODO Seleccionar todos
             }
         }
@@ -134,6 +162,9 @@ class ListFragment : Fragment() {
                 filter = s.toString()
                 if(filter.isNotBlank() && filter.isNotEmpty()){
                     bookViewModel.setBooksByText("%"+filter+"%")
+                    setObservers(3)
+                }else{
+                    setObservers(1)
                 }
 
             }

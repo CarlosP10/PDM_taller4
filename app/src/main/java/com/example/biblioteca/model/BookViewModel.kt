@@ -16,6 +16,8 @@ class BookViewModel (app:Application):AndroidViewModel(app){
     val repository: BookRepository
     //private lateinit var scope: CoroutineScope
     var getAllBook: LiveData<List<Book>>
+    var getAllFavs: LiveData<List<Book>>
+    var getAllSpecific: LiveData<List<Book>>
     val getAllAuthor:LiveData<List<Author>>
     val getAllTag:LiveData<List<Tag>>
 
@@ -29,6 +31,8 @@ class BookViewModel (app:Application):AndroidViewModel(app){
         val tagForBookDao = LibraryRoomDatabase.getDatabase(app, viewModelScope).tagBookJoinDAO()
         repository = BookRepository(bookDao,authorDao,tagDao,authorForBookDao,tagForBookDao)
         getAllBook = repository.getAllBook
+        getAllFavs = repository.getAllFavBook
+        getAllSpecific = repository.getAllBook
         getAllAuthor = repository.getAllAuthor
         getAllTag = repository.getAllTag
 
@@ -49,7 +53,7 @@ class BookViewModel (app:Application):AndroidViewModel(app){
     fun getTag(num: Int) = repository.getTag(num)
 
     fun setBooksByText(text: String){
-        getAllBook = getBooksByText(text)
+        getAllSpecific = getBooksByText(text)
     }
 
     fun updateFavBook(isbm: String) = viewModelScope.launch(Dispatchers.IO){ repository.updateFavBook(isbm) }
