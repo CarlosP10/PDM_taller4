@@ -15,4 +15,7 @@
     <string name="isbn">ISBN:</string>
     <string name="agregar">Guardar</string>
     <string name="tag">Etiquetas (Use comas):</string>
+    <string name="action_add">Agregar</string>
+    <string name="authors_string">Autores</string>
+    <string name="tags_string">Etiquetas</string>
 </resources>

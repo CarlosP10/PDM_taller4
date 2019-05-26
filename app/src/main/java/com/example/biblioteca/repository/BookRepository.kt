@@ -23,6 +23,7 @@ class BookRepository(private val bookDAO: BookDAO,
     fun getTag(num: Int): Tag = tagDAO.getTag(num)
 
     fun getAllAuthorBook(isbm:String): LiveData<List<Author>> = authorBookDao.getAuthorsForBook(isbm)
+
     fun getAllTagsBook(isbm:String): LiveData<List<Tag>> = tagBookDao.getBooksForTag(isbm)
 
     @WorkerThread
@@ -41,7 +42,9 @@ class BookRepository(private val bookDAO: BookDAO,
     suspend fun insertTagBook(repoTag:TagBookJoin){tagBookDao.insert(repoTag)}
 
     fun nukeBook() = bookDAO.deleteAll()
+
     fun nukeTag() = tagDAO.deleteAll()
+
     fun nukeAuthor() = authorDAO.deleteAll()
 
     @WorkerThread

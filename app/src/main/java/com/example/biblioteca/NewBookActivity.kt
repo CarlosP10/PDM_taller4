@@ -2,8 +2,13 @@ package com.example.biblioteca
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ScrollView
+import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.biblioteca.database.daos.AuthorBookJoinDAO
 import com.example.biblioteca.database.entities.*
 import com.example.biblioteca.model.BookViewModel
@@ -15,17 +20,20 @@ class NewBookActivity : AppCompatActivity() {
 
     private lateinit var bookViewModel: BookViewModel
     private lateinit var book : Book
+    private lateinit var authorScrollView : TextView
+    private lateinit var tagsScrollView : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_book)
 
         bookViewModel = ViewModelProviders.of(this).get(BookViewModel::class.java)
+        authorScrollView = findViewById(R.id.sv_authors)
+        tagsScrollView = findViewById(R.id.sv_tags)
 
         bt_add.setOnClickListener {
 
             var bookSuccess = true
-
             //Se crea el libro a guardar
 
             book = Book(et_isbn.text.toString(),
@@ -44,7 +52,6 @@ class NewBookActivity : AppCompatActivity() {
                 bookSuccess = false
                 println("El ISBN ya ha sido asignado.")
             }
-
 
             // Inserción de autores en tabla cruz
 
@@ -105,7 +112,8 @@ class NewBookActivity : AppCompatActivity() {
             }else{
                 Toast.makeText(this, "Ha ocurrido un problema, revise que el ISBM no esté registrado.", Toast.LENGTH_LONG).show()
             }
-
         }
+        //val authors = bookViewModel.getAllAuthor()
     }
+
 }

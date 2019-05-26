@@ -73,19 +73,63 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="(Puede consultar los IDs de autores y etiquetas más abajo)"
-                android:layout_margin="15dp"
+                android:layout_margin="5dp"
                 android:textColor="#000"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="6">
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/authors_string"
+                        android:layout_margin="5dp"
+                        android:padding="16dp"
+                        android:layout_weight="2"/>
+
+                <TextView
+                        android:id="@+id/sv_authors"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:padding="16dp"
+                        android:layout_weight="4"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="6">
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tags_string"
+                        android:layout_margin="5dp"
+                        android:padding="16dp"
+                        android:layout_weight="2"/>
+
+                <TextView
+                        android:id="@+id/sv_tags"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:padding="16dp"
+                        android:layout_weight="4"/>
+            </LinearLayout>
 
         <Button
                 android:id="@+id/bt_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Agregar"
+                android:text="@string/action_add"
                 android:textAllCaps="true"
                 android:inputType="text"/>
 
-
     </LinearLayout>
-
 
 </ScrollView>

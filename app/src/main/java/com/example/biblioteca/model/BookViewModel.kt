@@ -59,6 +59,7 @@ class BookViewModel (app:Application):AndroidViewModel(app){
     fun updateFavBook(isbm: String) = viewModelScope.launch(Dispatchers.IO){ repository.updateFavBook(isbm) }
 
     fun getAuthorsbyBook(isbm:String)= repository.getAllAuthorBook(isbm)
+
     fun getTagsbyBook(isbm:String)= repository.getAllTagsBook(isbm)
 
     fun insertBook(book: Book)= viewModelScope.launch(Dispatchers.IO){

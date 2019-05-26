@@ -13,6 +13,15 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp">
 
+        <Button
+            android:id="@+id/btn_fav"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_bg"
+            android:text="Fav"
+            android:layout_marginRight="16dp"/>
+
         <TextView
             android:id="@+id/rv_bookName"
             android:layout_weight="5"
@@ -22,13 +31,7 @@
             android:textSize="25sp"
             android:textColor="#753400"/>
 
-        <Button
-            android:id="@+id/btn_fav"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_bg"
-            android:text="Fav"/>
+
 
     </LinearLayout>
 
